@@ -1,0 +1,49 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  profiles:
+    include: oauth
+  #  mvc:
+#    pathmatch:
+#      matching-strategy: ant_path_matcher
+#  data:
+#    web:
+#      pageable:
+#        default-page-size: 10
+#        max-page-size: 100
+#        one-indexed-parameters: true
+  datasource:
+    url: jdbc:h2:mem:test
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+#  sql:
+#    init:
+#      mode: never
+#      schema-locations: classpath*:sql/schema-h2.sql
+#      data-locations: classpath*:sql/data-h2.sql
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 8437735853-a6elj40tmmdqs43k82i1n3hvmcd5fg6d.apps.googleusercontent.com
+            client-secret: rV3wdM8wI-4W4uyx56ym_L6c
+            scope:
+              - email
+              - profile
+logging:
+  level:
+    root: info

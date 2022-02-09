@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 페이지</title>
+</head>
+<body>
+<h1>로그인 페이지</h1>
+<hr/>
+<!-- 시큐리티는 x-www-form-url-encoded 타입만 인식 -->
+<form action="/loginProc" method="post">
+
+    <fieldset>
+        <legend>로그인</legend>
+        <label for="username">Email</label>
+        <input id="username" type="email" name="username" placeholder="Username"/>
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" placeholder="Password"/> <br/>
+        <button>로그인</button>
+    </fieldset>
+</form>
+
+<br/>
+<a href="/oauth2/authorization/google">Google Login</a>
+<br/>
+<a href="/joinForm">회원가입을 아직 하지 않으셨나요?</a>
+
+<br/>
+
+<h1>Social Login</h1>
+<br/>
+<!-- javascript:; 는 클릭해도 반응을 없게 하는 키워드 -->
+<a href="/oauth2/authorization/google">
+    <img src="https://pngimage.net/wp-content/uploads/2018/06/google-login-button-png-1.png"
+         alt="google" width="357px" height="117px">
+</a>
+<br/>
+<a href="/oauth2/authorization/facebook">
+    <img src="https://scontent-ssn1-1.xx.fbcdn.net/v/t39.2365-6/17639236_1785253958471956_282550797298827264_n.png?_nc_cat=105&ccb=1-5&_nc_sid=ad8a9d&_nc_ohc=fDUwBDsU0-UAX8Kho_2&_nc_oc=AQn4j23EDQBnskTl5U5K5N08VuZgoOejRa-1WrRXHuT8NBrGWIRmy_2-HvlC47U31eI&_nc_ht=scontent-ssn1-1.xx&oh=00_AT8hOK1aySaHr1TmH5ILSUG1yrQyb_awbiy9HWyXI7gFKw&oe=6209AF16"
+         alt="facebook" width="357px" height="40px">
+</a>
+<br/>
+
+<a href="/oauth2/authorization/naver">
+    <img src="/btnG_naver.png"
+         alt="naver" width="357px" height="50px">
+</a>
+<br/>
+</body>
+</html>
