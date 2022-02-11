@@ -55,14 +55,14 @@ public class IndexController {
         return "매니저 페이지입니다.";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/loginForm")
     public String login() {
-        return "login";
+        return "loginForm";
     }
 
-    @GetMapping("/join")
+    @GetMapping("/joinForm")
     public String join() {
-        return "join";
+        return "joinForm";
     }
 
     @PostMapping("/joinProc")

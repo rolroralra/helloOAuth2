@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -40,7 +41,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 
     @SuppressWarnings(value = {"unchecked"})
     private OAuth2User processOAuth2User(OAuth2UserRequest userRequest, OAuth2User oAuth2User) {
-        // Attribute를 파싱해서 공통 객체로 묶는다. 관리가 편함.
+        // Attribute 파싱해서 공통 객체로 묶는다. 관리가 편함.
         OAuth2UserInfo oAuth2UserInfo;
         if (userRequest.getClientRegistration().getRegistrationId().equals("google")) {
             log.info("OAuth-Google: {}", userRequest.getClientRegistration());
@@ -58,6 +59,8 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
         log.info("OAuth2UserInfo.getProvider(): {}", oAuth2UserInfo.getProvider());
         log.info("OAuth2UserInfo.getProviderId(): {}", oAuth2UserInfo.getProviderId());
 
+        String provider = oAuth2UserInfo.getProvider();
+        String providerId = oAuth2UserInfo.getProviderId();
         Optional<User> userOptional = userRepository.findByProviderAndProviderId(
                 oAuth2UserInfo.getProvider(),
                 oAuth2UserInfo.getProviderId()
@@ -68,11 +71,12 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             user = userOptional.get();
             // user가 존재하면 update 해주기
             user.setEmail(oAuth2UserInfo.getEmail());
+            user.setName(oAuth2User.getName());
             userRepository.save(user);
         } else {
             // user의 패스워드가 null이기 때문에 OAuth 유저는 일반적인 로그인을 할 수 없음.
             user = User.builder()
-                    .username(oAuth2UserInfo.getProvider() + "_" + oAuth2UserInfo.getProviderId())
+                    .name(oAuth2UserInfo.getName())
                     .email(oAuth2UserInfo.getEmail())
                     .role("ROLE_USER")
                     .provider(oAuth2UserInfo.getProvider())

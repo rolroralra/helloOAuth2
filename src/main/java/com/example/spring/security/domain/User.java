@@ -19,11 +19,12 @@ public class User {
     private Long id;
 
     @Email
+    @Column(unique = true)
     private String email;
 
     private String password;
 
-    private String username;
+    private String name;
 
     private String role;
 
