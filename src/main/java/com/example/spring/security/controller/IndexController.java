@@ -37,7 +37,7 @@ public class IndexController {
     public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principal) {
         System.out.println("Principal : " + principal);
         System.out.println("OAuth2 : "+principal.getUser().getProvider());
-        
+
         for (GrantedAuthority auth : principal.getAuthorities()) {
             System.out.println(auth.getAuthority());
         }
